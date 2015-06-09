@@ -63,3 +63,5 @@ def get_losers(year,week):
     for g in games:
         losing_teams_list.append(get_full_team_name(g.loser))
     return losing_teams_list
+
+# def get_team_record(year,team):

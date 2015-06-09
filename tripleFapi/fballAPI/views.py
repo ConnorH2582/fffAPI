@@ -160,14 +160,15 @@ class DefensiveBackView(View):
 class PunterView(View):
     pass
 
-class WeeklyScheduleView(View):
+class WeeklyMatchupView(View):
     def get(self,request,year,week):
         year = int(year)
         week = int(week.strip('week-'))
         home_teams = get_scheduled_home_teams(year,week)
         away_teams = get_scheduled_away_teams(year,week)
         schedule = zip(home_teams, away_teams)
-        return JsonResponse({'week_{}_schedule'.format(week): schedule})
+        game_count = schedule.__len__()
+        return JsonResponse({'week_{}_schedule'.format(week): schedule, 'game_count':game_count})
 
 class WeeklyScoresView(View):
     def get(self,request,year,week):
@@ -176,18 +177,21 @@ class WeeklyScoresView(View):
         home_teams = get_home_scores(year,week)
         away_teams = get_away_scores(year,week)
         scores = zip(home_teams, away_teams)
-        return JsonResponse({'week_{}_scores'.format(week): scores})
+        game_count = scores.__len__()
+        return JsonResponse({'week_{}_scores'.format(week): scores, 'game_count':game_count})
 
 class WeeklyWinnersView(View):
     def get(self, request, year, week):
         year = int(year)
         week = int(week.strip('week-'))
         winners = get_winners(year,week)
-        return JsonResponse({'winning_teams':winners})
+        game_count = winners.__len__()
+        return JsonResponse({'winning_teams':winners, 'game_count':game_count})
 
 class WeeklyLosersView(View):
     def get(self, request, year, week):
         year = int(year)
         week = int(week.strip('week-'))
         losers = get_losers(year,week)
-        return JsonResponse({'losing_teams':losers})
+        game_count = losers.__len__()
+        return JsonResponse({'losing_teams':losers,'game_count':game_count})
