@@ -22,12 +22,13 @@ class TestMyModule(unittest.TestCase): #must inherit
         self.assertEqual(res.status_code,200)
         string_dict = res.content
         scores_dict = json.loads(string_dict)
-        self.assertEqual(len(scores_dict["week_10_scores"]), scores_dict['game_count'])
+        print(scores_dict['week_10_scores'])
+        print(len(scores_dict['week_10_scores']))
+        self.assertEqual(len(scores_dict['week_10_scores']), scores_dict['game_count'])
         scores_list = []
-        print(scores_dict)
-        for i in range(len(scores_dict['week_10_scores'])):
-            for j in range(2):
-                scores_list.append(scores_dict['week_10_scores'][i][j][1])
+        for game in scores_dict['week_10_scores']:
+            scores_list.append(game['away']['score'])
+            scores_list.append(game['home']['score'])
         for score in scores_list:
             self.assertIsInstance(score, int)
 
