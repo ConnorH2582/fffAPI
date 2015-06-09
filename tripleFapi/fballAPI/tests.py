@@ -46,6 +46,5 @@ class TestMyModule(unittest.TestCase): #must inherit
         self.assertEqual(len(losers_dict[
         'losing_teams']), losers_dict['game_count'])
 
-
 if __name__ == '__main__':
     unittest.main()

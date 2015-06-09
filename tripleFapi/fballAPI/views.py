@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View
 from django.http import JsonResponse,Http404
 from django.utils.text import slugify
-from fballAPI.services import get_player_season_stats, get_scheduled_home_teams, get_scheduled_away_teams,get_home_scores,get_away_scores,get_winners,get_losers
+from fballAPI.services import get_player_season_stats, get_matchups,get_scores,get_winners,get_losers
 import requests
 import json
 import nflgame
@@ -164,21 +164,17 @@ class WeeklyMatchupView(View):
     def get(self,request,year,week):
         year = int(year)
         week = int(week.strip('week-'))
-        home_teams = get_scheduled_home_teams(year,week)
-        away_teams = get_scheduled_away_teams(year,week)
-        schedule = zip(home_teams, away_teams)
-        game_count = schedule.__len__()
-        return JsonResponse({'week_{}_schedule'.format(week): schedule, 'game_count':game_count})
+        games = get_matchups(year,week)
+        game_count = games.__len__()
+        return JsonResponse({'week_{}_schedule'.format(week): games, 'game_count':game_count})
 
 class WeeklyScoresView(View):
     def get(self,request,year,week):
         year = int(year)
         week = int(week.strip('week-'))
-        home_teams = get_home_scores(year,week)
-        away_teams = get_away_scores(year,week)
-        scores = zip(home_teams, away_teams)
-        game_count = scores.__len__()
-        return JsonResponse({'week_{}_scores'.format(week): scores, 'game_count':game_count})
+        games = get_scores(year,week)
+        game_count = games[0].__len__()
+        return JsonResponse({'week_{}_scores'.format(week): games, 'game_count':game_count})
 
 class WeeklyWinnersView(View):
     def get(self, request, year, week):
