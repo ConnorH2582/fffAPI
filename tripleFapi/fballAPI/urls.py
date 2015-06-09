@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from fballAPI.views import AllQuarterbacksView, AllRunningbacksView, AllReceiversView, AllTightEndsView, AllKickersView, AllLinemenView, AllLinebackersView, AllDefensiveBacksView, AllPuntersView, QuarterbackView, RunningbackView, ReceiverView, TightEndView, KickerView, LinemanView, LinebackerView, DefensiveBackView, PunterView,WeeklyScheduleView,WeeklyScoresView, WeeklyWinnersView,WeeklyLosersView
+from fballAPI.views import AllQuarterbacksView, AllRunningbacksView, AllReceiversView, AllTightEndsView, AllKickersView, AllLinemenView, AllLinebackersView, AllDefensiveBacksView, AllPuntersView, QuarterbackView, RunningbackView, ReceiverView, TightEndView, KickerView, LinemanView, LinebackerView, DefensiveBackView, PunterView,WeeklyMatchupView,WeeklyScoresView, WeeklyWinnersView,WeeklyLosersView
 from django.views.generic import View
 
 urlpatterns = patterns('',
@@ -48,7 +48,7 @@ urlpatterns = patterns('',
     #weekly pickem views
 
     #weekly scheduled matchups
-    url(r'^(?P<year>20[0-2][0-9])/(?P<week>week-{1}[1]*[0]*[0-7]{1})/matchups/$', WeeklyScheduleView.as_view()),
+    url(r'^(?P<year>20[0-2][0-9])/(?P<week>week-{1}[1]*[0]*[0-7]{1})/matchups/$', WeeklyMatchupView.as_view()),
 
     #weekly scores
     url(r'^(?P<year>20[0-2][0-9])/(?P<week>week-{1}[1]*[0]*[0-7]{1})/scores/$', WeeklyScoresView.as_view()),

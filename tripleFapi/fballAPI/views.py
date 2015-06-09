@@ -160,7 +160,7 @@ class DefensiveBackView(View):
 class PunterView(View):
     pass
 
-class WeeklyScheduleView(View):
+class WeeklyMatchupView(View):
     def get(self,request,year,week):
         year = int(year)
         week = int(week.strip('week-'))
