@@ -173,7 +173,6 @@ class WeeklyScoresView(View):
         year = int(year)
         week = int(week.strip('week-'))
         games = get_scores(year,week)
-        print(games)
         game_count = games.__len__()
         return JsonResponse({'week_{}_scores'.format(week): games, 'game_count':game_count})
 
