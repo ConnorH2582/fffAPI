@@ -15,6 +15,14 @@ def get_full_team_name(scoreboard_team_name):
     teams_dict = {'NYG':'New York Giants','PHI':'Philadelphia Eagles','DAL':'Dallas Cowboys','WAS':'Washington Redskins', 'NYJ':'New York Jets', 'NE': 'New England Patriots', 'MIA':'Miami Dolphins','BUF':'Buffalo Bills', 'TEN':'Tennessee Titans', 'HOU': 'Houston Texans', 'IND':'Indianapolis Colts','JAC':'Jacksonville Jaguars', 'OAK':'Oakland Raiders', 'DEN':'Denver Broncos','KC':'Kansas City Chiefs', 'SD':'San Diego Chargers','ATL':'Atlanta Falcons','CAR':'Carolina Panthers','NO':'New Orleans Saints','TB':'Tampa Bay Buccaneers','CHI':'Chicago Bears','MIN':'Minnesota Vikings','GB':'Green Bay Packers','DET':'Detroit Lions','ARI':'Arizona Cardinals','STL':'St. Louis Rams','SF':'San Francisco 49ers','SEA':'Seattle Seahawks','PIT':'Pittsburgh Steelers','BAL':'Baltimore Ravens', 'CLE':'Cleveland Browns','CIN':'Cincinnati Bengals'}
     return teams_dict[scoreboard_team_name]
 
+def convert_month(month_int):
+    months_dict = {9:'September', 10:'October', 11:'November',12:'December',1:'January'}
+    return months_dict[month_int]
+
+def convert_weekday(wday):
+    wday_dict = {'Mon':'Monday','Thu':'Thursday','Sat':'Saturday','Sun':'Sunday'}
+    return wday_dict[wday]
+
 def get_matchups(year, week):
     pass
     away_teams_dict = {}
@@ -23,7 +31,11 @@ def get_matchups(year, week):
     games = nflgame.games(year, week)
     for g in games:
         game = {'home':get_full_team_name(g.home),
-                'away':get_full_team_name(g.away)}
+                'away':get_full_team_name(g.away),
+                'month': convert_month(g.schedule['month']),
+                'day': g.schedule['day'],
+                'weekday': convert_weekday(g.schedule['wday']),
+                'time': g.schedule['time']}
         matchups_list.append(game)
     return matchups_list
 
