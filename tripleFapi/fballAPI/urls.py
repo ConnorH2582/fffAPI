@@ -6,7 +6,7 @@ from django.views.generic import View
 urlpatterns = patterns('',
 
     # all positional offensive player stats in season
-    url(r'^quarterbacks/(?P<year>20[0-2][0-9])$', AllQuarterbacksView.as_view()),
+    url(r'^quarterbacks/(?P<year>20[0-2][0-9]+/)$', AllQuarterbacksView.as_view()),
 
     url(r'^runningbacks/(?P<year>20[0-2][0-9])/$', AllRunningbacksView.as_view()),
 

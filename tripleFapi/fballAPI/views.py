@@ -11,7 +11,7 @@ import nflgame
 
 class AllQuarterbacksView(View):
     def get(self, request, year):
-        year = int(year)
+        # year = int(year)
         games = nflgame.games(year)
         players = nflgame.combine(games)
         all_qb_list = []
