@@ -11,14 +11,14 @@ class TestMyModule(unittest.TestCase): #must inherit
         pass
 
     def test_matchup_requests(self):
-        res = self.client.get('/fballAPI/2014/week-10/matchups/')
+        res = self.client.get('/fballAPI/2015/week-10/matchups/')
         self.assertEqual(res.status_code,200)
         string_dict = res.content
         matchup_dict = json.loads(string_dict)
         self.assertEqual(len(matchup_dict['week_10_schedule']), matchup_dict['game_count'])
 
     def test_scores_requests(self):
-        res = self.client.get('/fballAPI/2014/week-10/scores/')
+        res = self.client.get('/fballAPI/2015/week-10/scores/')
         self.assertEqual(res.status_code,200)
         string_dict = res.content
         scores_dict = json.loads(string_dict)
@@ -33,14 +33,14 @@ class TestMyModule(unittest.TestCase): #must inherit
             self.assertIsInstance(score, int)
 
     def test_winners(self):
-        res = self.client.get('/fballAPI/2014/week-10/winners/')
+        res = self.client.get('/fballAPI/2015/week-10/winners/')
         self.assertEqual(res.status_code,200)
         string_dict = res.content
         winners_dict = json.loads(string_dict)
         self.assertEqual(len(winners_dict['winning_teams']), winners_dict['game_count'])
 
     def test_losers(self):
-        res = self.client.get('/fballAPI/2014/week-10/losers/')
+        res = self.client.get('/fballAPI/2015/week-10/losers/')
         self.assertEqual(res.status_code,200)
         string_dict = res.content
         losers_dict = json.loads(string_dict)
