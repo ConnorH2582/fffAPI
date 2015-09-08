@@ -8,26 +8,39 @@ def get_full_team_name(scoreboard_team_name):
 
 def convert_month(month_int):
     months_dict = {9:'September', 10:'October', 11:'November',12:'December',1:'January'}
-    return months_dict[month_int]
+    return months_dict.get(month_int)
 
 def convert_weekday(wday):
     wday_dict = {'Mon':'Monday','Thu':'Thursday','Sat':'Saturday','Sun':'Sunday'}
-    return wday_dict[wday]
+    return wday_dict.get(wday)
 
 def get_matchups(year, week):
-    pass
     away_teams_dict = {}
     home_teams_dict = {}
     matchups_list = []
-    games = nflgame.games(year, week)
-    for g in games:
-        game = {'home':get_full_team_name(g.home),
-                'away':get_full_team_name(g.away),
-                'month': convert_month(g.schedule['month']),
-                'day': g.schedule['day'],
-                'weekday': convert_weekday(g.schedule['wday']),
-                'time': g.schedule['time']}
-        matchups_list.append(game)
+    next_year = str(int(year)+1)
+    games = nflgame.sched.games
+    for key, value in games.items():
+        if value.get('season_type') == 'REG':
+            if value.get('week') == int(week):
+                if key[0:4] == year:
+                    game = {'home':get_full_team_name(value.get('home')),
+                            'away':get_full_team_name(value.get('away')),
+                            'month': convert_month(value.get('month')),
+                            'day': value.get('day'),
+                            'weekday': convert_weekday(value.get('wday')),
+                            'time': value.get('time'),
+                            'year':year}
+                    matchups_list.append(game)
+                elif key[0:4] == next_year:
+                    game = {'home':get_full_team_name(value.get('home')),
+                            'away':get_full_team_name(value.get('away')),
+                            'month': convert_month(value.get('month')),
+                            'day': value.get('day'),
+                            'weekday': convert_weekday(value.get('wday')),
+                            'time': value.get('time'),
+                            'year':next_year}
+                    matchups_list.append(game)
     return matchups_list
 
 def get_scores(year,week):

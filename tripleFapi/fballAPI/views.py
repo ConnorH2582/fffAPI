@@ -8,8 +8,8 @@ import nflgame
 
 class WeeklyMatchupView(View):
     def get(self,request,year,week):
-        year = int(year)
-        week = int(week.strip('week-'))
+        # year = int(year)
+        week = week.strip('week-')
         games = get_matchups(year,week)
         game_count = games.__len__()
         return JsonResponse({'week_{}_schedule'.format(week): games, 'game_count':game_count})
