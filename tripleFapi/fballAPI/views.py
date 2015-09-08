@@ -8,7 +8,7 @@ import nflgame
 
 class WeeklyMatchupView(View):
     def get(self,request,year,week):
-        # year = int(year)
+        year = int(year)
         week = week.strip('week-')
         games = get_matchups(year,week)
         game_count = games.__len__()
