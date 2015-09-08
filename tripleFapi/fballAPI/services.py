@@ -19,6 +19,8 @@ def get_matchups(year, week):
     home_teams_dict = {}
     matchups_list = []
     next_year = str(int(year)+1)
+    print(next_year)
+    print(year)
     games = nflgame.sched.games
     for key, value in games.items():
         if value.get('season_type') == 'REG':
