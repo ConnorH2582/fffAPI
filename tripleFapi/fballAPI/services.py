@@ -18,9 +18,8 @@ def get_matchups(year, week):
     away_teams_dict = {}
     home_teams_dict = {}
     matchups_list = []
-    next_year = str(int(year)+1)
-    print(next_year)
-    print(year)
+    next_year = str(year+1)
+    year = str(year)
     games = nflgame.sched.games
     for key, value in games.items():
         if value.get('season_type') == 'REG':
@@ -32,7 +31,7 @@ def get_matchups(year, week):
                             'day': value.get('day'),
                             'weekday': convert_weekday(value.get('wday')),
                             'time': value.get('time'),
-                            'year':year}
+                            'year':value.get('year')}
                     matchups_list.append(game)
                 elif key[0:4] == next_year:
                     game = {'home':get_full_team_name(value.get('home')),
@@ -42,6 +41,7 @@ def get_matchups(year, week):
                             'weekday': convert_weekday(value.get('wday')),
                             'time': value.get('time'),
                             'year':next_year}
+                    print(game)
                     matchups_list.append(game)
     return matchups_list
 
@@ -49,6 +49,8 @@ def get_scores(year,week):
     games = nflgame.games(year, week)
     home_scores_dict = {}
     away_scores_dict = {}
+    year = str(year)
+
     scores_list = []
     for g in games:
         if get_full_team_name(g.winner):
@@ -75,6 +77,8 @@ def get_scores(year,week):
     return scores_list
 
 def get_winners(year,week):
+    year = str(year)
+
     winning_teams_list = []
     games = nflgame.games(year, week)
     for g in games:
@@ -82,6 +86,8 @@ def get_winners(year,week):
     return winning_teams_list
 
 def get_losers(year,week):
+    year = str(year)
+
     losing_teams_list = []
     games = nflgame.games(year, week)
     for g in games:
