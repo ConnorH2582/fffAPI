@@ -7,7 +7,7 @@ def get_full_team_name(scoreboard_team_name):
     return teams_dict.get(scoreboard_team_name)
 
 def convert_month(month_int):
-    months_dict = {9:'September', 10:'October', 11:'November',12:'December'}
+    months_dict = {9:'September', 10:'October', 11:'November',12:'December',1:'January'}
     return months_dict.get(month_int)
 
 def convert_weekday(wday):
@@ -21,17 +21,26 @@ def get_matchups(year, week):
     next_year = str(int(year)+1)
     games = nflgame.sched.games
     for key, value in games.items():
-        if key[0:4] == year or key[0:4] == next_year:
+        if value.get('season_type') == 'REG':
             if value.get('week') == int(week):
-                if value.get('season_type') == 'REG':
+                if key[0:4] == year:
                     game = {'home':get_full_team_name(value.get('home')),
                             'away':get_full_team_name(value.get('away')),
                             'month': convert_month(value.get('month')),
                             'day': value.get('day'),
                             'weekday': convert_weekday(value.get('wday')),
-                            'time': value.get('time')}
+                            'time': value.get('time'),
+                            'year':year}
                     matchups_list.append(game)
-    print(matchups_list)
+                elif key[0:4] == next_year:
+                    game = {'home':get_full_team_name(value.get('home')),
+                            'away':get_full_team_name(value.get('away')),
+                            'month': convert_month(value.get('month')),
+                            'day': value.get('day'),
+                            'weekday': convert_weekday(value.get('wday')),
+                            'time': value.get('time'),
+                            'year':next_year}
+                    matchups_list.append(game)
     return matchups_list
 
 def get_scores(year,week):
