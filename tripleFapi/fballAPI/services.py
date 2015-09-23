@@ -41,7 +41,6 @@ def get_matchups(year, week):
                             'weekday': convert_weekday(value.get('wday')),
                             'time': value.get('time'),
                             'year':next_year}
-                    print(game)
                     matchups_list.append(game)
     return matchups_list
 
