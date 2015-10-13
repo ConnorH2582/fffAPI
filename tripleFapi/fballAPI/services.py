@@ -76,21 +76,15 @@ def get_scores(year,week):
     return scores_list
 
 def get_winners(year,week):
-    year = str(year)
-
-    winning_teams_list = []
+    year = int(year)
     games = nflgame.games(year, week)
-    for g in games:
-        winning_teams_list.append(get_full_team_name(g.winner))
+    winning_teams_list = [get_full_team_name(game.winner) for game in games]
     return winning_teams_list
 
 def get_losers(year,week):
-    year = str(year)
-
-    losing_teams_list = []
+    year = int(year)
     games = nflgame.games(year, week)
-    for g in games:
-        losing_teams_list.append(get_full_team_name(g.loser))
+    losing_teams_list = [get_full_team_name(game.winner) for game in games]
     return losing_teams_list
 
 # def get_team_record(year,team):
