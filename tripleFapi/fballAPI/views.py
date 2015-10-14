@@ -24,7 +24,7 @@ class WeeklyScoresView(View):
 
 class WeeklyWinnersView(View):
     def get(self, request, year, week):
-        year = int(year)
+        # year = int(year)
         week = int(week.strip('week-'))
         winners = get_winners(year,week)
         game_count = winners.__len__()
