@@ -27,7 +27,9 @@ class WeeklyWinnersView(View):
         # year = int(year)
         week = int(week.strip('week-'))
         winners = get_winners(year,week)
+        print(winners)
         game_count = winners.__len__()
+        print(game_count)
         return JsonResponse({'winning_teams':winners, 'game_count':game_count})
 
 class WeeklyLosersView(View):
